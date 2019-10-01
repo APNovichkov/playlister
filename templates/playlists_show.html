@@ -12,6 +12,8 @@
 <h3>Rating: {{ playlist.rating }} </h3>
 
 <p><a href='/playlists/{{ playlist._id }}/edit'>Edit</a></p>
-
+<p><form method='POST' action='/playlists/{{ playlist._id }}/delete'>
+    <button type='submit'>Delete</button>
+</form></p>
 
 {% endblock %}

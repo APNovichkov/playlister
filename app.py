@@ -15,6 +15,8 @@ app = Flask(__name__)
 #    {'title': 'Rap Music', 'description': 'HYPHY!'}
 # ]
 
+
+# For showing all playlists -> Home Page
 @app.route("/")
 def playlists_index():
     return render_template(
@@ -22,7 +24,7 @@ def playlists_index():
         playlists=playlists.find()
     )
 
-
+# For showing playlist
 @app.route("/playlists/<playlist_id>")
 def playlists_show(playlist_id):
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
@@ -31,6 +33,8 @@ def playlists_show(playlist_id):
         playlist=playlist
     )
 
+
+# For updating playlist
 @app.route('/playlists/<playlist_id>', methods=['POST'])
 def playlists_update(playlist_id):
     """Submit an edited playlist."""
@@ -46,12 +50,21 @@ def playlists_update(playlist_id):
     return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 
+# For editing a playlist
 @app.route("/playlists/<playlist_id>/edit")
 def playlists_edit(playlist_id):
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
     return render_template('playlists_edit.html', playlist=playlist, title="Edit Playlist")
 
 
+# For deleting a playlist
+@app.route("/playlists/<playlist_id>/delete", methods=['POST'])
+def playlists_delete(playlist_id):
+    playlists.delete_one({'_id': ObjectId(playlist_id)})
+    return redirect(url_for('playlists_index'))
+
+
+# For saving a playlist
 @app.route("/playlists", methods=['POST'])
 def playlists_submit():
     playlist = {
@@ -67,6 +80,8 @@ def playlists_submit():
 
     return redirect(url_for("playlists_show", playlist_id=playlist_id))
 
+
+# For creating a new playlist
 @app.route("/playlists/new")
 def playlists_new():
     return render_template("playlists_new.html", title="New Playlist")
