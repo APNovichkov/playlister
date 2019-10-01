@@ -5,4 +5,8 @@
 <form method='POST' action='/playlists/{{playlist._id}}'>
     {% include 'partials/playlists_form.html' %}
 </form>
+
+<form action="/playlists/{{ playlist._id }}">
+    <input type="submit" value="Cancel" />
+</form>
 {% endblock %}
