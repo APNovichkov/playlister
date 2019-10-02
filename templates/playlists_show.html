@@ -3,7 +3,7 @@
 {% block content %}
 <a href='/'>Back to Home</a>
 <div class='row'>
-    <div class='col-sm-6 col-sm-offset-3 text-center'>
+    <div class='col-sm-6 col-sm-offset-3'>
         <h1>{{ playlist.title }}</h1>
         <h3>{{ playlist.description }}</h3>
         <h4>Rating: {{ playlist.rating }} </h4>
@@ -19,6 +19,11 @@
         </form></p>
 
         {% include 'partials/comment_form.html' %}
+        <hr>
+        {% for comment in comments %}
+            {% include 'partials/comment.html' %}
+        {% endfor %}
+
     </div>
 </div>
 
